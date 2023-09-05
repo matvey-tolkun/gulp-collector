@@ -18,7 +18,7 @@ const include = require('gulp-include')
 const pages = () =>
 	src('source/pages/*.html')
 	.pipe(include({
-		includePaths: 'source/components'
+		includePaths: 'source/html'
 	}))
 	.pipe(dest('source'))
 	.pipe(browserSync.stream())
@@ -61,7 +61,7 @@ const images = () =>
 	.pipe(dest('source/img'))
 
 const styles = () =>
-	src('source/scss/style.scss')
+	src('source/sass/style.sass')
 	.pipe(autoprefixer({overrideBrowserslist : ['last 10 version']}))
 	.pipe(concat('style.min.css'))
 	.pipe(scss({outputStyle: 'compressed'}))
@@ -82,10 +82,10 @@ const watching = () => {
 		}
 	});
 
-	watch(['source/scss/style.scss'], styles)
+	watch(['source/sass/**/*.sass'], styles)
 	watch(['source/img/src'], images)
 	watch(['source/js/main.js'], scripts)
-	watch(['source/components/*', 'source/pages/*'], pages)
+	watch(['source/html/**/*', 'source/pages/*'], pages)
 	watch(['source/*.html']).on("change", reload)
 }
 
